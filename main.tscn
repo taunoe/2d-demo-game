@@ -34,7 +34,6 @@ color = Color(0, 0.207843, 0.223529, 1)
 [node name="Gin" parent="." instance=ExtResource("4_adciw")]
 
 [node name="ToivoTimer" type="Timer" parent="."]
-wait_time = 0.9
 
 [node name="ScoreTimer" type="Timer" parent="."]
 
