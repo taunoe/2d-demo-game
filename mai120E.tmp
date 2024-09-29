@@ -1,0 +1,84 @@
+[gd_scene load_steps=11 format=3 uid="uid://dpualsxoi5vir"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_kw0k7"]
+[ext_resource type="PackedScene" uid="uid://hb6ny851q6nd" path="res://player/player.tscn" id="1_spa5u"]
+[ext_resource type="PackedScene" uid="uid://w6si054os16i" path="res://toivo/toivo.tscn" id="2_sr2yj"]
+[ext_resource type="PackedScene" uid="uid://jqn65v24jx2g" path="res://gin/gin.tscn" id="4_adciw"]
+[ext_resource type="PackedScene" uid="uid://d0qea0fj6e4no" path="res://HUD/ui.tscn" id="4_qponj"]
+[ext_resource type="AudioStream" uid="uid://whmgk83xagxk" path="res://music/game-music.wav" id="5_226dp"]
+[ext_resource type="AudioStream" uid="uid://dxeihkk5khjd1" path="res://music/game-over-38511.mp3" id="6_fpm6h"]
+[ext_resource type="AudioStream" uid="uid://k2m4beucpnd2" path="res://music/negative.wav" id="7_r83rr"]
+[ext_resource type="AudioStream" uid="uid://wln8h2re7vhq" path="res://music/treasure.wav" id="8_x0vbk"]
+
+[sub_resource type="Curve2D" id="Curve2D_8i6ru"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 480, 0, 0, 0, 0, 0, 480, 720, 0, 0, 0, 0, 0, 720, 0, 0, 0, 0, 0, 0)
+}
+point_count = 5
+
+[node name="Main" type="Node"]
+script = ExtResource("1_kw0k7")
+toivo_scene = ExtResource("2_sr2yj")
+gin_scene = ExtResource("4_adciw")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0.207843, 0.223529, 1)
+
+[node name="Player" parent="." instance=ExtResource("1_spa5u")]
+
+[node name="Gin" parent="." instance=ExtResource("4_adciw")]
+
+[node name="ToivoTimer" type="Timer" parent="."]
+wait_time = 0.5
+
+[node name="ScoreTimer" type="Timer" parent="."]
+
+[node name="StartTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="StartPosition" type="Marker2D" parent="."]
+position = Vector2(240, 450)
+
+[node name="ToivoPath" type="Path2D" parent="."]
+curve = SubResource("Curve2D_8i6ru")
+
+[node name="ToivoSpawnLocation" type="PathFollow2D" parent="ToivoPath"]
+
+[node name="HUD" parent="." instance=ExtResource("4_qponj")]
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_226dp")
+
+[node name="DeathSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_fpm6h")
+
+[node name="HurtTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="DeadTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="HurtSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_r83rr")
+
+[node name="GinSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_x0vbk")
+
+[node name="GinTimer" type="Timer" parent="."]
+wait_time = 10.0
+
+[connection signal="hit" from="Player" to="." method="player_hit"]
+[connection signal="timeout" from="ToivoTimer" to="." method="_on_toivo_timer_timeout"]
+[connection signal="timeout" from="ScoreTimer" to="." method="_on_score_timer_timeout"]
+[connection signal="timeout" from="StartTimer" to="." method="_on_start_timer_timeout"]
+[connection signal="start_game" from="HUD" to="." method="new_game"]
+[connection signal="timeout" from="HurtTimer" to="." method="_on_hurt_timer_timeout"]
+[connection signal="timeout" from="DeadTimer" to="." method="_on_dead_timer_timeout"]
+[connection signal="timeout" from="GinTimer" to="." method="_on_gin_timer_timeout"]

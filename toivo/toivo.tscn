@@ -1,0 +1,55 @@
+[gd_scene load_steps=8 format=3 uid="uid://w6si054os16i"]
+
+[ext_resource type="Script" path="res://toivo/toivo.gd" id="1_sydmd"]
+[ext_resource type="Texture2D" uid="uid://imeobbimba3a" path="res://art/toivo_top_1.svg" id="6_0051k"]
+[ext_resource type="Texture2D" uid="uid://bcqfynpc86qwx" path="res://art/toivo_top_2.svg" id="7_jo5wf"]
+[ext_resource type="Texture2D" uid="uid://6gkj7js3qr7f" path="res://art/toivo_dark_1.svg" id="8_bl6d2"]
+[ext_resource type="Texture2D" uid="uid://b3e4rrqel8em8" path="res://art/toivo_dark_2.svg" id="9_7uxca"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_id5jj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_0051k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_jo5wf")
+}],
+"loop": true,
+"name": &"vacuum",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_bl6d2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_7uxca")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 3.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8iq7w"]
+radius = 33.0
+
+[node name="Toivo" type="RigidBody2D" groups=["mobs"]]
+position = Vector2(6, -4)
+collision_mask = 0
+gravity_scale = 0.0
+script = ExtResource("1_sydmd")
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_id5jj")
+animation = &"vacuum"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-2, 1)
+shape = SubResource("CircleShape2D_8iq7w")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

@@ -1,0 +1,62 @@
+[gd_scene load_steps=10 format=3 uid="uid://jqn65v24jx2g"]
+
+[ext_resource type="Script" path="res://gin/gin.gd" id="1_5q32j"]
+[ext_resource type="Texture2D" uid="uid://6xddlt30svi7" path="res://art/gin_0.svg" id="1_8grl0"]
+[ext_resource type="Texture2D" uid="uid://mwqfp7srspr2" path="res://art/gin_1.svg" id="2_ae7qa"]
+[ext_resource type="Texture2D" uid="uid://chs56roubw0hw" path="res://art/gin_2.svg" id="3_a4jwt"]
+[ext_resource type="Texture2D" uid="uid://33m3yth2alad" path="res://art/gin_3.svg" id="4_2ihp8"]
+[ext_resource type="Texture2D" uid="uid://biqsmswet3pqp" path="res://art/gin_4.svg" id="5_0ck8t"]
+[ext_resource type="Texture2D" uid="uid://bnuq36w53b1yi" path="res://art/gin_5.svg" id="6_xm34i"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7vm35"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_8grl0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_ae7qa")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_a4jwt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_2ihp8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_0ck8t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_xm34i")
+}],
+"loop": true,
+"name": &"bottle",
+"speed": 6.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3ka6b"]
+radius = 12.0
+height = 76.0
+
+[node name="Gin" type="Area2D"]
+script = ExtResource("1_5q32j")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_7vm35")
+animation = &"bottle"
+autoplay = "bottle"
+frame = 3
+frame_progress = 0.561104
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -11)
+shape = SubResource("CapsuleShape2D_3ka6b")
+
+[node name="GinLiveTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+autostart = true
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="timeout" from="GinLiveTimer" to="." method="_on_timer_timeout"]

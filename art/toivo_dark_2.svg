@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 139.18 148.84">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+      }
+
+      .cls-2 {
+        fill: #9d9d9c;
+      }
+
+      .cls-3 {
+        fill: #3c3c3b;
+      }
+
+      .cls-4 {
+        fill: #dadada;
+      }
+    </style>
+  </defs>
+  <g>
+    <polygon class="cls-2" points="109.53 119.56 134.9 103.05 139.14 113.29 109.53 119.56"/>
+    <polygon class="cls-2" points="109.87 119.42 93.35 94.05 103.6 89.8 109.87 119.42"/>
+    <polygon class="cls-2" points="109.56 119.3 134.94 135.81 139.18 125.57 109.56 119.3"/>
+    <polygon class="cls-2" points="109.73 119.71 116 90.09 126.24 94.33 109.73 119.71"/>
+    <polygon class="cls-2" points="109.65 118.9 115.92 148.52 126.16 144.27 109.65 118.9"/>
+    <polygon class="cls-2" points="110.25 119.38 80.63 125.64 84.87 135.89 110.25 119.38"/>
+    <polygon class="cls-2" points="110.04 119.22 103.77 148.84 93.53 144.59 110.04 119.22"/>
+    <polygon class="cls-2" points="110.21 119.63 84.83 103.12 80.59 113.36 110.21 119.63"/>
+  </g>
+  <g>
+    <polygon class="cls-2" points="109.53 29.76 134.9 13.24 139.14 23.49 109.53 29.76"/>
+    <polygon class="cls-2" points="109.87 29.62 93.35 4.24 103.6 0 109.87 29.62"/>
+    <polygon class="cls-2" points="109.56 29.5 134.94 46.01 139.18 35.76 109.56 29.5"/>
+    <polygon class="cls-2" points="109.73 29.91 116 .29 126.24 4.53 109.73 29.91"/>
+    <polygon class="cls-2" points="109.65 29.1 115.92 58.72 126.16 54.47 109.65 29.1"/>
+    <polygon class="cls-2" points="110.25 29.58 80.63 35.84 84.87 46.09 110.25 29.58"/>
+    <polygon class="cls-2" points="110.04 29.42 103.77 59.04 93.53 54.79 110.04 29.42"/>
+    <polygon class="cls-2" points="110.21 29.83 84.83 13.32 80.59 23.56 110.21 29.83"/>
+  </g>
+  <circle class="cls-4" cx="66" cy="75.26" r="66"/>
+  <circle class="cls-3" cx="66" cy="75.26" r="59"/>
+  <circle class="cls-4" cx="66" cy="75.26" r="20"/>
+  <rect class="cls-4" x="95.5" y="59.76" width="22" height="31" rx="10.98" ry="10.98" transform="translate(181.76 -31.24) rotate(90)"/>
+  <circle class="cls-3" cx="111.5" cy="74.76" r="7.5"/>
+  <circle class="cls-1" cx="111.5" cy="74.76" r="2"/>
+</svg>
