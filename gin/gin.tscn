@@ -54,7 +54,7 @@ position = Vector2(0, -11)
 shape = SubResource("CapsuleShape2D_3ka6b")
 
 [node name="GinLiveTimer" type="Timer" parent="."]
-wait_time = 2.0
+wait_time = 4.0
 one_shot = true
 autostart = true
 
