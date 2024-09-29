@@ -117,7 +117,7 @@ grow_horizontal = 0
 grow_vertical = 0
 theme_override_fonts/font = ExtResource("3_528dp")
 theme_override_font_sizes/font_size = 10
-text = "ver 0.8"
+text = "ver 0.9"
 horizontal_alignment = 1
 vertical_alignment = 2
 
