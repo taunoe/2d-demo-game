@@ -41,13 +41,13 @@ func player_hit() -> void:
 
 
 func game_over() -> void:
-	print("game_over")
+	$Music.stop()
+	$DeathSound.play()
 	$ScoreTimer.stop()
 	$ToivoTimer.stop()
 	$GinTimer.stop()
 	$HUD.show_game_over()
-	$Music.stop()
-	$DeathSound.play()
+	
 
 # start game signal
 func new_game():
@@ -71,6 +71,12 @@ func _on_start_timer_timeout() -> void:
 func _on_score_timer_timeout() -> void:
 	score += 1
 	$HUD.update_score(score)
+	
+	# Muudo uute toivode tulek kiiremaks
+	if score > 50:
+		$ToivoTimer.set_wait_time(0.5)
+	if score > 100:
+		$ToivoTimer.set_wait_time(0.4)
 
 func _on_toivo_timer_timeout() -> void:
 	# Create a new instance of the Mob scene.
@@ -119,5 +125,6 @@ func _on_gin_timer_timeout() -> void:
 func on_gin_collected() -> void:
 	print("on_gin_collected")
 	lives += 1
+	score += 5
 	$HUD.update_lives(lives)
 	$GinSound.play()
