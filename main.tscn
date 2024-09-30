@@ -72,7 +72,7 @@ stream = ExtResource("7_r83rr")
 stream = ExtResource("8_x0vbk")
 
 [node name="GinTimer" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 6.0
 
 [connection signal="hit" from="Player" to="." method="player_hit"]
 [connection signal="timeout" from="ToivoTimer" to="." method="_on_toivo_timer_timeout"]

@@ -22,6 +22,10 @@ func _process(delta: float) -> void:
 func player_hit() -> void:
 	if lives > 0:
 		lives -= 1
+	
+	score -= 6
+	if score < 0:
+		score = 0
 
 	$HUD.update_lives(lives)
 	
