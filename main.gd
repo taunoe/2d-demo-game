@@ -2,6 +2,8 @@ extends Node
 
 @export var toivo_scene: PackedScene
 @export var gin_scene: PackedScene
+@export var ghost_scene: PackedScene
+@export var alien_scene: PackedScene
 
 var score
 var lives
@@ -46,6 +48,7 @@ func game_over() -> void:
 	$ScoreTimer.stop()
 	$ToivoTimer.stop()
 	$GinTimer.stop()
+	$GhostTimer.stop()
 	$HUD.show_game_over()
 	
 
@@ -66,6 +69,8 @@ func _on_start_timer_timeout() -> void:
 	$ToivoTimer.start()
 	$ScoreTimer.start()
 	$GinTimer.start()
+	$GhostTimer.start()
+	$AlienTimer.start()
 
 #  increment the score by 1
 func _on_score_timer_timeout() -> void:
@@ -127,4 +132,56 @@ func on_gin_collected() -> void:
 	lives += 1
 	score += 5
 	$HUD.update_lives(lives)
+	$HUD.update_score(score)
 	$GinSound.play()
+
+
+func on_ghost_area_entered() -> void:
+	print("on_ghost_area_entered")
+	lives -= 1
+	score -= 5
+	if lives < 0:
+		lives = 0
+	if score < 0:
+		score = 0
+	$HUD.update_lives(lives)
+	$HUD.update_score(score)
+	$HurtTimer.start()
+	$Player.set_animation('Hurt', true)
+	$GhostSound.play()
+
+
+func _on_ghost_timer_timeout() -> void:
+	var ghost = ghost_scene.instantiate()
+	var screen_size = get_viewport().get_visible_rect().size
+	var rand_x = randi_range(0, screen_size.x)
+	var rand_y = randi_range(0, screen_size.y)
+	ghost.position = Vector2(rand_x, rand_y)
+	add_child(ghost)
+
+
+func on_alien_area_entered()  -> void:
+	print("on_alien_area_entered")
+	lives += 2
+	score += 10
+	if lives < 0:
+		lives = 0
+	if score < 0:
+		score = 0
+	$HUD.update_lives(lives)
+	$HUD.update_score(score)
+	$AlienSound.play()
+	### Ei tööta
+	#get_tree().root.get_node("Toivo").queue_free()
+	#var save_nodes = get_tree().root.get_nodes_in_group("Toivo")
+	#for node in save_nodes:
+	#	node.queue_free()
+
+
+func _on_alien_timer_timeout() -> void:
+	var alien = alien_scene.instantiate()
+	var screen_size = get_viewport().get_visible_rect().size
+	var rand_x = randi_range(0, screen_size.x)
+	var rand_y = randi_range(0, screen_size.y)
+	alien.position = Vector2(rand_x, rand_y)
+	add_child(alien)

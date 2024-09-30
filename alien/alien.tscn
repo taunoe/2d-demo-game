@@ -1,0 +1,44 @@
+[gd_scene load_steps=6 format=3 uid="uid://bwqodtmr7mlx0"]
+
+[ext_resource type="Texture2D" uid="uid://bncxuv0o5iq7w" path="res://art/alienYellow_swim1.png" id="1_fo404"]
+[ext_resource type="Script" path="res://alien/alien.gd" id="1_mbkom"]
+[ext_resource type="Texture2D" uid="uid://x8b8gtccraux" path="res://art/alienYellow_swim2.png" id="2_2luqx"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_o46tq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_fo404")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_2luqx")
+}],
+"loop": true,
+"name": &"Alien",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_t3g0y"]
+radius = 33.0
+height = 84.0
+
+[node name="Alien" type="Area2D"]
+scale = Vector2(0.5, 0.5)
+script = ExtResource("1_mbkom")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_o46tq")
+animation = &"Alien"
+autoplay = "Alien"
+frame_progress = 0.0149613
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_t3g0y")
+
+[node name="AlienLiveTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+autostart = true
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="timeout" from="AlienLiveTimer" to="." method="_on_alien_live_timer_timeout"]
