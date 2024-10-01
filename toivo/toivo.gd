@@ -3,6 +3,7 @@ extends RigidBody2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	add_to_group("enemies")
 	# get the list of animation names
 	var toivo_types = $AnimatedSprite2D.sprite_frames.get_animation_names()
 	# selects a random

@@ -2,7 +2,13 @@ extends Area2D
 
 
 func _ready() -> void:
-	pass
+	# First, disconnect any previous connections (if any)
+	if is_connected("area_entered", Callable(self, "_on_area_entered")):
+		disconnect("area_entered", Callable(self, "_on_area_entered"))
+	
+	# Then, connect the signal again
+	connect("area_entered", Callable(self, "_on_area_entered"))
+
 
 
 func _process(delta: float) -> void:
@@ -14,9 +20,10 @@ func collected() -> void:
 
 
 func _on_area_entered(area: Area2D) -> void:
-	print("_on_area_entered")
+	print("_on_area_entered: Area entered:", area.name)
 	# execute func in main
-	get_tree().root.get_node("Main").on_gin_collected()
+	if get_tree().root.has_node("Main"):  # Ensure Main node exists
+		get_tree().root.get_node("Main").on_gin_collected()
 	collected()
 
 

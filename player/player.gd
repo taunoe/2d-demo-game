@@ -26,6 +26,7 @@ func _input(event):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	var direction = Vector2.ZERO # The player's movement vector. (0, 0)
+	#var position = global_position
 
 	if Input.is_action_pressed("move_right"):
 		direction.x += 1
@@ -71,7 +72,12 @@ func _process(delta: float) -> void:
 		else:
 			$AnimatedSprite2D.animation = "idle"
 		
-	#direction = Vector2.ZERO
+	# Clamp the player's position to the screen bounds
+	position.x = clamp(position.x, 0, screen_size.x)
+	position.y = clamp(position.y, 0, screen_size.y)
+
+	# Apply the clamped position back to the player
+	global_position = position
 
 
 # emit hit signal

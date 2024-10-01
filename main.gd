@@ -13,6 +13,9 @@ var lives
 func _ready() -> void:
 	score = 0
 	lives = 1
+	$GinSound.stop()
+	$GhostSound.stop()
+	$AlienSound.stop()  # Stop the music on startup
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -57,6 +60,7 @@ func new_game():
 	score = 0
 	lives = 2
 	$Player.start($StartPosition.position)
+	$ToivoTimer.set_wait_time(0.65)
 	$StartTimer.start()
 	$HUD.update_score(score)
 	$HUD.update_lives(lives)
@@ -171,11 +175,11 @@ func on_alien_area_entered()  -> void:
 	$HUD.update_lives(lives)
 	$HUD.update_score(score)
 	$AlienSound.play()
-	### Ei tööta
-	#get_tree().root.get_node("Toivo").queue_free()
-	#var save_nodes = get_tree().root.get_nodes_in_group("Toivo")
-	#for node in save_nodes:
-	#	node.queue_free()
+	# Get all nodes in the "enemies" group
+	for enemy in get_tree().get_nodes_in_group("enemies"):
+		# Ensure the enemy node is valid
+		if enemy:
+			enemy.call_deferred("queue_free")  # Safely remove the enemy from the scene
 
 
 func _on_alien_timer_timeout() -> void:
