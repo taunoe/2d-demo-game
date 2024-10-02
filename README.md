@@ -1,4 +1,4 @@
-# 2D mäng
+# 2D mäng Toivod
 
 Hakkasin õppima GoDoti mängumootorit ja tegin sellise 2D mängu.
 
