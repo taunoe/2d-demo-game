@@ -71,6 +71,7 @@ func _process(delta: float) -> void:
 			#$AnimatedSprite2D.flip_v = velocity.y > 0  # tagurpidi
 		else:
 			$AnimatedSprite2D.animation = "idle"
+	$AnimatedSprite2D.play()
 		
 	# Clamp the player's position to the screen bounds
 	position.x = clamp(position.x, 0, screen_size.x)

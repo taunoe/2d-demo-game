@@ -1,19 +1,17 @@
 extends Area2D
 
-
 func _ready() -> void:
-	# First, disconnect any previous connections (if any)
-	if is_connected("area_entered", Callable(self, "_on_area_entered")):
-		disconnect("area_entered", Callable(self, "_on_area_entered"))
-	
-	# Then, connect the signal again
-	connect("area_entered", Callable(self, "_on_area_entered"))
-
+	$CollisionShape2D.disabled = true
+	hide()
 
 
 func _process(delta: float) -> void:
 	pass
 
+
+func start():
+	$CollisionShape2D.disabled = false
+	show()
 
 func collected() -> void:
 	queue_free()
@@ -28,5 +26,5 @@ func _on_area_entered(area: Area2D) -> void:
 
 
 func _on_timer_timeout() -> void:
-	print("gin timeout")
+	print("gin _on_timer_timeout()")
 	queue_free()

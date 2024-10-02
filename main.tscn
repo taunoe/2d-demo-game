@@ -27,7 +27,7 @@ gin_scene = ExtResource("4_adciw")
 ghost_scene = ExtResource("10_axtpy")
 alien_scene = ExtResource("5_q8sfw")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="BackGround" type="ColorRect" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

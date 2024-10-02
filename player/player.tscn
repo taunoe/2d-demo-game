@@ -234,8 +234,10 @@ metadata/_edit_group_ = true
 position = Vector2(3, 0)
 scale = Vector2(0.15, 0.15)
 sprite_frames = SubResource("SpriteFrames_eo1xn")
-animation = &"idle"
+animation = &"walk"
 autoplay = "idle"
+frame = 2
+frame_progress = 0.376998
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_stihb")

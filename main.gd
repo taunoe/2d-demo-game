@@ -8,14 +8,25 @@ extends Node
 var score
 var lives
 
+var game_started = false  # Track if the game has started
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	score = 0
-	lives = 1
+	lives = 2
+	$HUD.update_score(score)
+	$HUD.update_lives(lives)
 	$GinSound.stop()
 	$GhostSound.stop()
 	$AlienSound.stop()  # Stop the music on startup
+	#
+	$ToivoTimer.stop()
+	$GinTimer.stop()
+	$GhostTimer.stop()
+	$DeadTimer.stop()
+	$HurtTimer.stop()
+	$StartTimer.stop()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -37,8 +48,6 @@ func player_hit() -> void:
 	if lives < 1:
 		$DeadTimer.start()
 		$Player.set_animation('Dead', true)
-		#$Player.player_dead()
-		#game_over()
 	else:
 		$HurtTimer.start()
 		$Player.set_animation('Hurt', true)
@@ -52,29 +61,35 @@ func game_over() -> void:
 	$ToivoTimer.stop()
 	$GinTimer.stop()
 	$GhostTimer.stop()
+	$DeadTimer.stop()
+	$HurtTimer.stop()
 	$HUD.show_game_over()
+	#game_started = false
 	
 
 # start game signal
 func new_game():
+	game_started = true
 	score = 0
 	lives = 2
+	$HUD.update_score(score)
+	$HUD.update_lives(lives)
 	$Player.start($StartPosition.position)
 	$ToivoTimer.set_wait_time(0.65)
 	$StartTimer.start()
-	$HUD.update_score(score)
-	$HUD.update_lives(lives)
 	$HUD.show_message("Ole valmis")
 	get_tree().call_group("toivod", "queue_free") # eemlada eelmise mängu mobsid
 	$Music.play()
 
 # will start the other two timers
 func _on_start_timer_timeout() -> void:
-	$ToivoTimer.start()
-	$ScoreTimer.start()
-	$GinTimer.start()
-	$GhostTimer.start()
-	$AlienTimer.start()
+	if game_started:
+		print("_on_start_timer_timeout()")
+		$ToivoTimer.start()
+		$ScoreTimer.start()
+		$GinTimer.start()
+		$GhostTimer.start()
+		$AlienTimer.start()
 
 #  increment the score by 1
 func _on_score_timer_timeout() -> void:
@@ -123,12 +138,14 @@ func _on_dead_timer_timeout() -> void:
 
 
 func _on_gin_timer_timeout() -> void:
-	var gin = gin_scene.instantiate()
-	var screen_size = get_viewport().get_visible_rect().size
-	var rand_x = randi_range(0, screen_size.x)
-	var rand_y = randi_range(0, screen_size.y)
-	gin.position = Vector2(rand_x, rand_y)
-	add_child(gin)
+	if game_started:
+		var gin = gin_scene.instantiate()
+		var screen_size = get_viewport().get_visible_rect().size
+		var rand_x = randi_range(0, screen_size.x)
+		var rand_y = randi_range(0, screen_size.y)
+		gin.position = Vector2(rand_x, rand_y)
+		add_child(gin)
+		$Gin.start()
 
 
 func on_gin_collected() -> void:
@@ -156,12 +173,14 @@ func on_ghost_area_entered() -> void:
 
 
 func _on_ghost_timer_timeout() -> void:
-	var ghost = ghost_scene.instantiate()
-	var screen_size = get_viewport().get_visible_rect().size
-	var rand_x = randi_range(0, screen_size.x)
-	var rand_y = randi_range(0, screen_size.y)
-	ghost.position = Vector2(rand_x, rand_y)
-	add_child(ghost)
+	if game_started:
+		var ghost = ghost_scene.instantiate()
+		var screen_size = get_viewport().get_visible_rect().size
+		var rand_x = randi_range(0, screen_size.x)
+		var rand_y = randi_range(0, screen_size.y)
+		ghost.position = Vector2(rand_x, rand_y)
+		add_child(ghost)
+		$Ghost.start()
 
 
 func on_alien_area_entered()  -> void:
@@ -183,9 +202,11 @@ func on_alien_area_entered()  -> void:
 
 
 func _on_alien_timer_timeout() -> void:
-	var alien = alien_scene.instantiate()
-	var screen_size = get_viewport().get_visible_rect().size
-	var rand_x = randi_range(0, screen_size.x)
-	var rand_y = randi_range(0, screen_size.y)
-	alien.position = Vector2(rand_x, rand_y)
-	add_child(alien)
+	if game_started:
+		var alien = alien_scene.instantiate()
+		var screen_size = get_viewport().get_visible_rect().size
+		var rand_x = randi_range(0, screen_size.x)
+		var rand_y = randi_range(0, screen_size.y)
+		alien.position = Vector2(rand_x, rand_y)
+		add_child(alien)
+		$Alien.start()

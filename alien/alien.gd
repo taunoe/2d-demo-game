@@ -3,18 +3,17 @@ extends Area2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	# First, disconnect any previous connections (if any)
-	if is_connected("area_entered", Callable(self, "_on_area_entered")):
-		disconnect("area_entered", Callable(self, "_on_area_entered"))
-	
-	# Then, connect the signal again
-	connect("area_entered", Callable(self, "_on_area_entered"))
+	$CollisionShape2D.disabled = true
+	hide()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
 
+func start():
+	$CollisionShape2D.disabled = false
+	show()
 
 func collected() -> void:
 	queue_free()
@@ -22,6 +21,7 @@ func collected() -> void:
 
 func _on_area_entered(area: Area2D) -> void:
 	# execute func in main
+	print("tere, area entered:", area.name)  # Print the name of the area entering
 	get_tree().root.get_node("Main").on_alien_area_entered()
 	collected()
 
