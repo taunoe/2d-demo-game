@@ -2,4 +2,6 @@
 
 Hakkasin õppima GoDoti mängumootorit ja tegin sellise 2D mängu.
 
-Mängitav veebilehitsejas (ei vaja sisselogimist): [Mängi](https://taunoe.github.io/2d-demo-game/)
+Avaneb veebilehitsejas (ei vaja sisselogimist). Saab mängida nii telefonis, kui ka arvuti klaviatuuri ja hiirega: [Mängi](https://taunoe.github.io/2d-demo-game/)
+
+
