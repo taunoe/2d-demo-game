@@ -30,6 +30,10 @@ func update_lives(lives):
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	$ScoreNum.hide()
+	$ScoreLabel.hide()
+	$LivesNum.hide()
+	$LivesLabel.hide()
 	pass # Replace with function body.
 
 
@@ -39,6 +43,10 @@ func _process(delta: float) -> void:
 
 
 func _on_start_button_pressed() -> void:
+	$ScoreNum.show()
+	$ScoreLabel.show()
+	$LivesNum.show()
+	$LivesLabel.show()
 	$StartButton.hide()
 	start_game.emit()
 
